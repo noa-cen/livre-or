@@ -24,6 +24,10 @@ font-family: "Roboto", serif;
     border-style: solid; */
 }
 
+textarea{
+    color:black;
+}
+
 body {
     background-color: var(--primary);
     background-image: url("./img/background.jpg");
@@ -143,7 +147,7 @@ input{
             border-radius: 5px;
             padding: 4px;
             margin-top: 4px;
-            color: var(--primary);
+            color: black;
         }
 
         label {
