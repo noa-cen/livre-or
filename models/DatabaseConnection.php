@@ -7,7 +7,7 @@ class DatabaseConnection {
     private $user;
     private $password;
 
-    public function __construct($host = "localhost", $dbname = "quiz_night", $user = "root", $password = "")
+    public function __construct($host = "localhost", $dbname = "livre-or", $user = "root", $password = "")
     {
         $this->host = $host;
         $this->dbname = $dbname;
