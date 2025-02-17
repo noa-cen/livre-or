@@ -1,13 +1,13 @@
 <?php
 
 class DatabaseConnection {
-    private $pdo;
-    private $host;
-    private $dbname;
-    private $user;
-    private $password;
+    protected $pdo;
+    protected $host;
+    protected $dbname;
+    protected $user;
+    protected $password;
 
-    public function __construct($host = "localhost", $dbname = "quiz_night", $user = "root", $password = "")
+    public function __construct($host = "localhost", $dbname = "livreor", $user = "root", $password = "")
     {
         $this->host = $host;
         $this->dbname = $dbname;
