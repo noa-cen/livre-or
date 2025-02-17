@@ -1,18 +1,25 @@
 <?php
+session_start();
+
 require_once '../models/DatabaseConnection.php';
 require_once '../models/Commentaire.php';
 
-$pdo = DatabaseConnection::getInstance()->getConnection();
-$commentaire = new Commentaire($pdo);
+// Instanciation de la connexion à la BDD
+$db = new DatabaseConnection();
+$commentaire = new Commentaire($db);
 
+// Gestion de la pagination
 $limit = 5;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($page < 1) {
+    $page = 1;
+}
 $offset = ($page - 1) * $limit;
+
+// Récupération des commentaires et du nombre total
 $commentaires = $commentaire->recupererCommentaires($limit, $offset);
 $totalCommentaires = $commentaire->compterCommentaires();
 $totalPages = ceil($totalCommentaires / $limit);
-
-session_start();
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +33,9 @@ session_start();
     <h1>Livre d'or</h1>
     <?php foreach ($commentaires as $com): ?>
         <div class="commentaire">
-            <p><strong><?= htmlspecialchars($com['login']) ?></strong> a écrit le <?= date('d/m/Y', strtotime($com['date'])) ?> :</p>
+            <p>
+                <strong><?= htmlspecialchars($com['login']) ?></strong> a écrit le <?= date('d/m/Y', strtotime($com['date'])) ?> :
+            </p>
             <p><?= nl2br(htmlspecialchars($com['comment'])) ?></p>
         </div>
     <?php endforeach; ?>
