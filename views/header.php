@@ -1,23 +1,23 @@
 <?php
 
-require_once __DIR__ . "/../models/DatabaseConnection.php";
-require_once __DIR__ . "/../models/Session.php";
+require_once (__DIR__ . "/../models/DatabaseConnection.php") ;
+// require_once "/../models/Session.php";
 
 $connexion = new DatabaseConnection; 
 $pdo = $connexion->getPdo();
 
-$session = new Session;
-$session->startSession();
-if (isset($_GET["action"]) && $_GET["action"] === "logout") {
-    $session->logOut();
-}
-?>
+// $session = new Session;
+// $session->startSession();
+// if (isset($_GET["action"]) && $_GET["action"] === "logout") {
+//     $session->logOut();
+// }
+// ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Quiz Night game">
+    <meta name="description" content="Livre d'or">
     <meta name="keywords" content="HTML, CSS, PHP">
     <meta name="author" content="Noa Cengarle, Armelle Pouzioux, Vladimir Gorbachev">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,21 +36,21 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
     <nav class="navbar">
 
         <article class="My Website">
-            <a href="/quiznight-PHP/index.php" 
-            aria-label="Accéder à l'accueil du site"><h1>QuizNight !</h1></a>
+            <a href="/livre-or/index.php" 
+            aria-label="Accéder à l'accueil du site"><h1>ACCUEIL</h1></a>
         </article>
 
         <article class="nav-link">
             <ul>
-                <li><a href= "/quiznight-PHP/views/dashboard.php" aria-label="Accéder aux quiz">Quiz</a></li>
-                <!-- <li><a href="#" aria-label="Accéder aux scores">Scores</a></li> -->
+                <li><a href= "livre-or.php" aria-label="Voir le livre d'or"> Commentaires</a></li>
+                <li><a href= "ajout-commentaire.php" aria-label="Voir le livre d'or"> Laisser un mot doux</a></li>
                 <?php if (isset($_SESSION["username"])) : ?>
-                    <li><a href="/quiznight-PHP/views/user_update.php" 
+                    <li><a href="#" 
                 aria-label="Accéder à mon compte"><?php echo $_SESSION["username"] ?></a></li>
                 <li class="connection"><a href="?action=logout" 
                 aria-label="Me déconnecter">Me déconnecter</a></li>
                 <?php else: ?>
-                    <li class="connection"><a href="/quiznight-PHP/views/user_login.php"
+                    <li class="connection"><a href="/views/user_login.php"
                 aria-label="Accéder à me connecter">Me connecter</a></li>
                 <?php endif; ?>
             </ul>
