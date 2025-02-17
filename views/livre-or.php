@@ -1,8 +1,10 @@
 <?php
 session_start();
+$pageTitle = "Livre d'Or";
 
 require_once '../models/Commentaire.php';
-require_once (__DIR__ . "/header.php");
+require_once (__DIR__ . "/../views/header.php");
+
 
 // Instanciation de la connexion à la BDD
 $db = new DatabaseConnection();
@@ -22,14 +24,14 @@ $totalCommentaires = $commentaire->compterCommentaires();
 $totalPages = ceil($totalCommentaires / $limit);
 ?>
 
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Livre d'or</title>
     <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body> -->
+<body>
     <h1>Livre d'or</h1>
     <?php foreach ($commentaires as $com): ?>
         <div class="commentaire">
