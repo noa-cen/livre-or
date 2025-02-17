@@ -17,13 +17,13 @@ require_once(__DIR__ . "/views/header.php");
             <p>Prenez un instant pour partager un message qui nous accompagnera longtemps après 
                 cette magnifique journée.</p>
 
-            <article class="button blanc">
+            <article class="bouton">
                 <a href="./views/livre-or.php" 
-                aria-label="Accéder à la page livre d'or">Voir le livre d'or</a>
-            </article>
-            <article class="button marron">
+                aria-label="Accéder à la page livre d'or" class="button blanc">Voir le livre d'or</a>
+                
                 <a href="./views/connexion.php" 
-                aria-label="Accéder à la page d'ajout de commentaire">Remplir le livre d'or</a>
+                aria-label="Accéder à la page d'ajout de commentaire" 
+                class="button marron">Remplir le livre d'or</a>
             </article>
         </article>
     </section>

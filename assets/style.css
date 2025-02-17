@@ -1,16 +1,16 @@
-<<<<<<< HEAD
 /* Color palette */
 :root {
-    --primary: #23213D;
-    --secondary: #51517A;
-    --secondary-70: rgb(81, 81, 122, 0.7);
-    --tertiary: #55DCD7;
-    --white-:#FFFFFF;
+    --primary: #793329;
+    --secondary: #C6876B;
+    --tertiary: #F3BDA1;
+    --tertiary-85: rgb(243, 189, 161, 0.85);
+    --quarterly-:#2C2C2C;
 }
 
 /* Fonts:
-font-family: "Henny Penny", serif;
-font-family: "Roboto", serif;
+font-family: "Fascinate", serif;
+font-family: "Fascinate Inline", serif;
+font-family: "Lato", serif;
 */
 
 /* General */
@@ -39,7 +39,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: "Roboto", serif;
+    font-family: "Lato", serif;
+    color: var(--quarterly-);
     gap: 30px;
 }
 
@@ -52,9 +53,8 @@ main {
 
 /* Button */
 .button {
-    background-color: var(--tertiary);
-    padding: 8px 16px;
-    border-radius: 5px;
+    padding: 8px 32px;
+    border-radius: 20px;
     align-self: center;
     font-family: "Roboto", serif;
     font-weight: bold;
@@ -62,41 +62,16 @@ main {
     font-size: 14pt;
     cursor: pointer;
     margin-bottom: 16px;
-
-    a, i {
-        color: var(--primary);
-    }
 }
 
-/* Jump effect */
-.jump {
-    transition: all 0.2s ease-in-out;
+.marron {
+    background-color: var(--primary);
+    color: white;
 }
-  
-.jump:hover {
-    animation: jump 1s ease;
-    animation-iteration-count: 1;
-} 
 
-@keyframes jump {
-    15% {
-      transform: translateY(10px);
-    }
-    30% {
-      transform: translateY(-10px);
-    }
-    50% {
-      transform: translateY(8px);
-    }
-    65% {
-      transform: translateY(-6px);
-    }
-    80% {
-      transform: translateY(3px);
-    }
-    100% {
-      transform: translateY(0);
-    }
+.blanc {
+    background-color: white;
+    color: var(--primary);
 }
 
 input{
@@ -105,7 +80,7 @@ input{
 
 /* Form */
 .form {
-    background-color: var(--secondary-70);
+    background-color: var(--tertiary-85);
     width: auto;
     height: auto;
     display: flex;
@@ -118,7 +93,7 @@ input{
     border: 1px solid var(--primary);
 
     h2 {
-        font-family: "Henny Penny", serif;
+        font-family: "Fascinate Inline", serif;
         font-size: 30pt;
         margin-bottom: 24px;
     }
@@ -219,12 +194,15 @@ input{
 
 /* Header */
 header {
-    background-color: var(--primary);
-    border-bottom: 1px solid var(--secondary);
+    background-color: var(--secondary);
 
     h1 {
-        font-family: "Henny Penny", serif;
+        font-family: "Fascinate", serif;
+        color: var(--primary);
         font-size: 25pt;
+        span {
+            color: white;
+        }
     }
 
     .navbar {
@@ -268,39 +246,42 @@ header {
     gap: 64px;
 
     .text {
+        background-color: var(--tertiary-85);
+        border-radius: 15px;
+        padding: 16px;
+        margin: 32px 200px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 20px;
 
         h2 {
-            font-family: "Henny Penny", serif;
+            font-family: "Fascinate Inline", serif;
             font-size: 40pt;
         }
     
         p {
             font-size: 14pt; 
         }
+
+        .bouton {
+            display: flex;
+            margin: 16px auto 0;
+            gap: 32px;
+        }
     }
-    
-    .questionMark {
-        width: 400px;
-    }
+
 }
 
 /* Footer */
 footer {
+    background-color: var(--secondary);
     margin-top: auto;
 
     .copyright {
         font-size: 10pt;
         text-align: center;
         padding: 8px 0;
-
-        a {
-            font-family: "Henny Penny", serif;
-            font-size: 12pt;
-        }
     }
 }
 
@@ -376,13 +357,4 @@ footer {
     .button{
         max-width: 60px;
     }
-=======
-/* Font police:
-font-family: "Fascinate", serif;
-font-family: "Fascinate Inline", serif;
-font-family: "Lato", serif; */
-
-h1 {
-    font-family: "Fascinate", serif;
->>>>>>> utilisateur
 }

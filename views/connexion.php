@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <form action="" method="POST" class="form">
 
-        <h2>Me connecter !</h2>
+        <h2>Connectez-vous</h2>
         
         <section class="form-body">
             <article class="form-items">

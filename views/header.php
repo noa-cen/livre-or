@@ -37,7 +37,7 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
 <header>
     <nav class="navbar">
 
-        <a href="/livre-or/index.php" aria-label="Accéder à l'accueil"><h1>Marie & Clara</h1></a>
+        <a href="/livre-or/index.php" aria-label="Accéder à l'accueil"><h1>Marie <span>&</span> Clara</h1></a>
 
         <article class="nav-link">
             <ul>
