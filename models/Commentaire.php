@@ -1,20 +1,19 @@
 <?php
 
 class Commentaire {
-    private int $id;
-    private string $comment;
-    private int $id_user;
-    private string $date;
-    private PDO $pdo;
+    private $pdo;
 
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
+    public function __construct(DatabaseConnection $db) {
+        $this->pdo = $db->getPdo();
     }
 
-    public function ajouterCommentaire(int $id_user, string $comment): bool {
-        $sql = "INSERT INTO comment (comment, id_user, date) VALUES (:comment, :id_user, NOW())";
+    public function ajouterCommentaire($id_user, $comment) {
+        $sql = "INSERT INTO comment (id_user, comment, date) VALUES (:id_user, :comment, NOW())";
         $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute(['comment' => $comment, 'id_user' => $id_user]);
+        return $stmt->execute([
+            ':id_user' => $id_user,
+            ':comment' => $comment
+        ]);
     }
 
     public function recupererCommentaires(int $limit, int $offset): array {
@@ -33,5 +32,5 @@ class Commentaire {
         $sql = "SELECT COUNT(*) FROM comment";
         return $this->pdo->query($sql)->fetchColumn();
     }
-}
+}   
 ?>

@@ -8,8 +8,10 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$pdo = DatabaseConnection::getInstance()->getConnection();
-$commentaire = new Commentaire($pdo);
+// Instancier la connexion à la BDD et la classe Commentaire
+$db = new DatabaseConnection();
+$commentaire = new Commentaire($db);
+
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['commentaire'])) {
