@@ -45,9 +45,11 @@ class Utilisateur extends DatabaseConnection
         $query = "UPDATE user SET utilisateur = :utilisateur, mdp = :mdp, WHERE id = :id";
         $stmt = $this->getPdo()->prepare($query);
         
+        $nouveauMdpProtege = password_hash($nouveauMdp, PASSWORD_DEFAULT);
+
         $params = [
             ":username" => $nouveauUtilisateur,
-            ":mdp" => $nouveauMdp,
+            ":mdp" => $nouveauMdpProtege,
             ":id" => $user_id
         ];
     
