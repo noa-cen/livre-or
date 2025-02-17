@@ -1,17 +1,17 @@
 <?php
 
 require_once (__DIR__ . "/../models/DatabaseConnection.php") ;
-// require_once "/../models/Session.php";
+require_once (__DIR__ . "/../models/Session.php");
 
 $connexion = new DatabaseConnection; 
 $pdo = $connexion->getPdo();
 
-// $session = new Session;
-// $session->startSession();
-// if (isset($_GET["action"]) && $_GET["action"] === "logout") {
-//     $session->logOut();
-// }
-// ?>
+$session = new Session;
+$session->startSession();
+if (isset($_GET["action"]) && $_GET["action"] === "logout") {
+    $session->logOut();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
