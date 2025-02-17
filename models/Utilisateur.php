@@ -10,18 +10,18 @@ class Utilisateur extends DatabaseConnection
 
     public function inscription($utilisateur, $mdp)
     {
-        $query = "SELECT utilisateur FROM user WHERE utilisateur = :utilisateur";
+        $query = "SELECT login FROM user WHERE login = :login";
         $stmt = $this->getPdo()->prepare($query);
-        $stmt->execute(["utilisateur" => $utilisateur]);
+        $stmt->execute(["login" => $utilisateur]);
         if ($stmt->fetch(PDO::FETCH_ASSOC)) {
             return $errors["utilisateur"] = "Un compte existe déjà avec ce nom d'utilisateur.";
         }
 
         $mdpProtege = password_hash($mdp, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO user(utilisateur, mdp) VALUES (:utilisateur, :mdp)";
+        $query = "INSERT INTO user(login, password, admin) VALUES (:login, :password, :admin)";
         $stmt = $this->getPdo()->prepare($query);
-        if ($stmt->execute([":utilisateur" => $utilisateur, ":mdp" => $mdpProtege])) {
+        if ($stmt->execute([":login" => $utilisateur, ":password" => $mdpProtege, "admin" => 0])) {
             return true;
         } else {
             return $errors["inscription"] = "Erreur lors de l'inscription.";
@@ -30,30 +30,41 @@ class Utilisateur extends DatabaseConnection
 
     public function connexion($utilisateur, $mdp)
     {
-        $query = "SELECT * FROM user WHERE utilisateur = :utilisateur";
+        $query = "SELECT * FROM user WHERE login = :login";
         $stmt = $this->getPdo()->prepare($query);
-        $stmt->execute(["utilisateur" => $utilisateur]);
+        $stmt->execute(["login" => $utilisateur]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($mdp, $utilisateur["mdp"])) {
+        if ($user && password_verify($mdp, $user["password"])) {
             return $user;
         } 
         return false;
     }
 
-    public function modification($nouveauUtilisateur, $nouveauMdp, $user_id) {
-        $query = "UPDATE user SET utilisateur = :utilisateur, mdp = :mdp, WHERE id = :id";
+    public function modification($nouveauUtilisateur, $ancienMdp, $nouveauMdp, $user_id) 
+    {
+        $query = "SELECT password FROM user WHERE id = :id";
         $stmt = $this->getPdo()->prepare($query);
-        
-        $nouveauMdpProtege = password_hash($nouveauMdp, PASSWORD_DEFAULT);
+        $stmt->execute(["id" => $user_id]);
+        $password = $stmt->fetch(PDO::FETCH_COLUMN);
 
-        $params = [
-            ":username" => $nouveauUtilisateur,
-            ":mdp" => $nouveauMdpProtege,
-            ":id" => $user_id
-        ];
-    
-        $modif = $stmt->execute($params);
-        return $modif;
+        if (password_verify($ancienMdp, $password)) {
+            $query = "UPDATE user SET login = :login, password = :password WHERE id = :id";
+            $stmt = $this->getPdo()->prepare($query);
+            
+            $nouveauMdpProtege = password_hash($nouveauMdp, PASSWORD_DEFAULT);
+
+            $params = [
+                ":login" => $nouveauUtilisateur,
+                ":password" => $nouveauMdpProtege,
+                ":id" => $user_id
+            ];
+        
+            $modif = $stmt->execute($params);
+            return $modif;
+        }
+        else {
+            return "Le mot de passe est incorrect.";
+        }
     }
 }
