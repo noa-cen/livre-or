@@ -1,7 +1,7 @@
 <?php
 
 $pageTitle = "Me connecter";
-require_once(__DIR__ . "/../header.php");
+require_once(__DIR__ . "/header.php");
 
 $utilisateur = $mdp = "";
 $errors = [];
@@ -9,18 +9,20 @@ $errors = [];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Trim whitespace from the email and password inputs
     $utilisateur = trim($_POST["utilisateur"]);
-    $mdp = trim($_POST["mdp"]);
+    $mdp = $_POST["mdp"];
 
-    // Log in the user using the userController's login method
+    $utilisateurController = new UtilisateurController;
     $loggedInUser = $utilisateurController->connexionUtilisateur($utilisateur, $mdp);
 
     if ($loggedInUser) {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }        
         // Set session variables with user data
         $_SESSION["id"] = $loggedInUser["id"];
-        $_SESSION["utilisateur"] = $loggedInUser["utilisateur"];
+        $_SESSION["utilisateur"] = $loggedInUser["login"];
         $_SESSION["successMessage"] = "Bienvenue " . $_SESSION["utilisateur"] . " !";
-        header("Location: ../dashboard.php");
+        header("Location: ajout-commentaire.php");
         exit();
     } else {
         $errors["connexion"] = "Email ou mot de passe incorrect.";
@@ -51,15 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <article class="form-items">
                 <label for="mdp">Mot de passe:</label>
-                <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" 
-                required>
+                <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required>
             </article>
 
-            <input type="submit" value="Me connecter" class="button jump">
+            <input type="submit" value="Se connecter" class="button marron">
 
             <a href="./inscription.php">Pas encore de compte ? C'est par ici !</a>
         </section>
     </form>
 </main>
 
-<?php require_once(__DIR__ . "/../footer.php"); ?>
+<?php require_once(__DIR__ . "/footer.php"); ?>

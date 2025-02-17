@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Color palette */
 :root {
     --primary: #23213D;
@@ -375,4 +376,13 @@ footer {
     .button{
         max-width: 60px;
     }
+=======
+/* Font police:
+font-family: "Fascinate", serif;
+font-family: "Fascinate Inline", serif;
+font-family: "Lato", serif; */
+
+h1 {
+    font-family: "Fascinate", serif;
+>>>>>>> utilisateur
 }

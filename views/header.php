@@ -1,7 +1,8 @@
 <?php
 
-require_once (__DIR__ . "/../models/DatabaseConnection.php") ;
-require_once (__DIR__ . "/../models/Session.php");
+require_once __DIR__ . "/../models/DatabaseConnection.php";
+require_once __DIR__ . "/../models/Session.php";
+require_once __DIR__ . "/../controllers/UtilisateurController.php";
 
 $connexion = new DatabaseConnection; 
 $pdo = $connexion->getPdo();
@@ -14,10 +15,10 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Livre d'or">
+    <meta name="description" content="Livre d'or de Marie et Clara">
     <meta name="keywords" content="HTML, CSS, PHP">
     <meta name="author" content="Noa Cengarle, Armelle Pouzioux, Vladimir Gorbachev">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,11 +26,10 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
     <script src="https://kit.fontawesome.com/ecde10fa93.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Fascinate&family=Fascinate+Inline&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/livre-or/assets/style.css">
-    
-    <link rel="icon" href="/quiznight-PHP/assets/img/favicon.ico">
+    <link rel="stylesheet" href="/livre-or/assets/style.css?v=<?php echo time(); ?>">
+    <link rel="icon" href="/livre-or/assets/img/favicon.ico" type="image/x-icon">
     <title><?php echo $pageTitle; ?></title>
 
 </head>
@@ -37,26 +37,17 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
 <header>
     <nav class="navbar">
 
-        <article class="My Website">
-            <a href="../index.php" 
-            aria-label="Accéder à l'accueil du site"><h1>ACCUEIL</h1></a>
-        </article>
+        <a href="/livre-or/index.php" aria-label="Accéder à l'accueil"><h1>Marie & Clara</h1></a>
 
         <article class="nav-link">
             <ul>
-                <li><a href= "/../livre-or/views/livre-or.php" aria-label="Voir le livre d'or"> Commentaires</a></li>
-                <li><a href= "/../livre-or/views/ajout-commentaire.php" aria-label="Voir le livre d'or"> Laisser un mot doux</a></li>
-                <?php if (isset($_SESSION["username"])) : ?>
-                    <li><a href="#" 
-                aria-label="Accéder à mon compte"><?php echo $_SESSION["username"] ?></a></li>
-                <li class="connection"><a href="?action=logout" 
-                aria-label="Me déconnecter">Me déconnecter</a></li>
-                <?php else: ?>
-                    <li class="connection"><a href="views/user_login.php"
-                aria-label="Accéder à me connecter">Me connecter</a></li>
+                <?php if (isset($_SESSION["utilisateur"])) : ?>
+                    <li><a href= "/livre-or/views/livre-or.php" 
+                    aria-label="Accéder au livre d'or">Livre d'or</a></li>
+                    <li><a href="/livre-or/views/profil.php" 
+                    aria-label="Accéder à mon compte"><i class="fa-solid fa-user"></i></a></li>
                 <?php endif; ?>
             </ul>
         </article>
-
     </nav>
 </header>

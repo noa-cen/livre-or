@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/../models/Utilisateur.php"); 
+require_once(__DIR__ . "/../models/Administrateur.php"); 
 
 class UtilisateurController extends DatabaseConnection
 {
@@ -13,12 +14,13 @@ class UtilisateurController extends DatabaseConnection
         $user = new Utilisateur;
         $result = $user->connexion($utilisateur, $mdp);
 
-        if ($result !== true) {
-            return $errors["connexion"] = "Erreur lors de la création du quiz.";
+        if ($result === false) {
+            return false;
         }
+        return $result;
     }
 
-    public function creationUtilisateur($utilisateur, $mdp, $mdpVerifie)
+    public function creationUtilisateur($utilisateur, $mdp, $mdpVerifie, $codeSecret)
     {
         $errors = [];
 
@@ -37,20 +39,35 @@ class UtilisateurController extends DatabaseConnection
             return $errors;
         }
 
-        $user = new Utilisateur;
-        $result = $user->inscription($utilisateur, $mdp);
+        // Définition du code secret attendu pour l'administration
+        $codeSecretAttendu = "votreCodeSecret"; // à définir
+
+        // Vérification du code secret pour déterminer le type de compte
+        if ($codeSecret === $codeSecretAttendu) {
+            // Inscription en tant qu'administrateur
+            $compte = new Administrateur();
+        } else {
+            // Inscription en tant qu'utilisateur standard
+            $compte = new Utilisateur();
+        }
+
+        $result = $compte->inscription($utilisateur, $mdp);
 
         if ($result === true) {
             $_SESSION["successMessage"] = "Votre compte a été créé avec succès !";
-            header("Location: login.php");
+            header("Location: connexion.php");
             exit();
         }
     }
 
-    public function modificationUtilisateur($nouveauUtilisateur, $nouveauMdp, $nouveauMdpVerifie, 
-    $user_id)
+    public function modificationUtilisateur($nouveauUtilisateur, $ancienMdp, $nouveauMdp, 
+    $nouveauMdpVerifie, $user_id)
     {
         $errors = [];
+
+        if ($ancienMdp === $nouveauMdp) {
+            $errors["ancienMdp"] = "Le nouveau mot de passe doit être différent de l'ancien.";
+        }
 
         if (strlen($nouveauMdp) < 8 || !preg_match("/[A-Za-z]/", $nouveauMdp) || !preg_match("/[0-9]/", 
         $nouveauMdp)) {
@@ -68,12 +85,12 @@ class UtilisateurController extends DatabaseConnection
         }
 
         $user = new Utilisateur;
-        $edit = $user->modification($nouveauUtilisateur, $nouveauMdp, $user_id);
+        $edit = $user->modification($nouveauUtilisateur, $ancienMdp, $nouveauMdp, $user_id);
 
         if ($edit === true) {
             $_SESSION["utilisateur"] = $nouveauUtilisateur;
             $_SESSION["successMessage"] = "Votre compte a été modifié avec succès !";
-            header("Location: editUser.php");
+            header("Location: profil.php");
             exit();
         } else {
             return $errors["modification"] = "Erreur lors de la modification du nom d'utilisateur.";

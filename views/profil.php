@@ -1,7 +1,7 @@
 <?php
 
 $pageTitle = "Modifier mon compte";
-require_once(__DIR__ . "/../header.php");
+require_once(__DIR__ . "/header.php");
 
 $errors = [];
 $utilisateurController = new UtilisateurController;
@@ -15,11 +15,12 @@ if (isset($_SESSION["utilisateur"])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and sanitize the form input values
     $nouveauUtilisateur = htmlspecialchars(trim($_POST["utilisateur"]));
+    $ancienMdp = $_POST["ancienMdp"];
     $nouveauMdp = $_POST["mdp"];
     $nouveauMdpVerifie = $_POST["mdpVerifie"];
 
     // Register the user using the userController
-    $result = $utilisateurController->modificationUtilisateur($nouveauUtilisateur, $nouveauMdp, 
+    $result = $utilisateurController->modificationUtilisateur($nouveauUtilisateur, $ancienMdp, $nouveauMdp, 
     $nouveauMdpVerifie, $user_id);
     
     if ($result !== true) { 
@@ -50,14 +51,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 required value="<?= htmlspecialchars($utilisateur) ?>">
             </article>
 
+            <article class="form-items">
+                <label for="ancienMdp">Ancien mot de passe:</label>
+                <input type="password" id="ancienMdp" name="ancienMdp" placeholder="Ancien mot de passe" 
+                required>
+            </article>
+
             <?php if (!empty($errors["mdp"])) : ?>
                 <p class="message error"><?php echo $errors["mdp"];?></p>
             <?php endif; ?>
 
             <article class="form-items">
-                <label for="mdp">Mot de passe:</label>
-                <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" 
-                required>
+                <label for="mdp">Nouveau mot de passe:</label>
+                <input type="password" id="mdp" name="mdp" placeholder="Nouveau mot de passe">
             </article>
 
             <?php if (!empty($errors["mdpVerifie"])) : ?>
@@ -65,15 +71,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endif; ?>
 
             <article class="form-items">
-                <label for="mdpVerifie">Vérifier le mot de passe:</label>
+                <label for="mdpVerifie">Confirmer le mot de passe:</label>
                 <input type="password" id="mdpVerifie" name="mdpVerifie" 
-                placeholder="Vérifier le mot de passe" required>
+                placeholder="Confirmer le mot de passe">
             </article>
 
-            <input type="submit" value="Modifier mon compte" name="modifier" 
-            class="button jump">
+            <input type="submit" value="Modifier" name="modifier" class="button marron">
         </section>        
     </form>
 </main>
 
-<?php require_once(__DIR__ . "/../footer.php"); ?>
+<?php require_once(__DIR__ . "/footer.php"); ?>
