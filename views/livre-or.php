@@ -77,9 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
         <?php endfor; ?>
     </div>
 
-    <?php if (isset($_SESSION['id'])): ?>
-        <a href="ajout-commentaire.php">Ajouter un commentaire</a>
-    <?php endif; ?>
+    <a href="<?php echo isset($_SESSION['id']) ? 'ajout-commentaire.php' : '/livre-or/views/connexion.php'; ?>">  Ajouter un commentaire </a>
 </main>
 
 <?php require_once(__DIR__ . "/footer.php"); ?>
