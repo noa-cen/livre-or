@@ -44,11 +44,13 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
 
         <article class="nav-link">
             <ul>
+            <li><a href="/livre-or/views/livre-or.php" 
+            aria-label="Accéder à la page livre d'or" class="button blanc">Voir le livre d'or</a></li>
                 <?php if (isset($_SESSION["utilisateur"])) : ?>
-                    <li><a href="./livre-or.php" 
-                    aria-label="Accéder à la page livre d'or" class="button blanc">Voir le livre d'or</a></li>
                     <li><a href="/livre-or/views/profil.php" 
                     aria-label="Accéder à mon compte"><i class="fa-solid fa-user"></i></a></li>
+                    <li class="connection"><a href="?action=logout"
+                        aria-label="Me déconnecter" class="button blanc">Me déconnecter</a></li>
                 <?php endif; ?>
             </ul>
         </article>

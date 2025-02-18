@@ -2,15 +2,15 @@
 session_start();
 $pageTitle = "Livre d'Or";
 
+require_once '../models/DatabaseConnection.php';
 require_once '../models/Commentaire.php';
 require_once (__DIR__ . "/../views/header.php");
-
 
 // Instanciation de la connexion à la BDD
 $db = new DatabaseConnection();
 $commentaire = new Commentaire($db);
 
-// Gestion de la pagination
+// Paramètres de pagination
 $limit = 6;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page < 1) {
@@ -18,12 +18,21 @@ if ($page < 1) {
 }
 $offset = ($page - 1) * $limit;
 
-// Récupération des commentaires et du nombre total
-$commentaires = $commentaire->recupererCommentaires($limit, $offset);
-$totalCommentaires = $commentaire->compterCommentaires();
+// Récupération du mot-clé de recherche (s'il est renseigné)
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+// Si un mot-clé est fourni, on effectue une recherche, sinon on récupère tous les commentaires
+if (!empty($search)) {
+    $commentaires = $commentaire->rechercherCommentaires($search, $limit, $offset);
+    $totalCommentaires = $commentaire->compterCommentairesRecherche($search);
+} else {
+    $commentaires = $commentaire->recupererCommentaires($limit, $offset);
+    $totalCommentaires = $commentaire->compterCommentaires();
+}
+
 $totalPages = ceil($totalCommentaires / $limit);
 
-
+// Suppression d'un commentaire (pour admin)
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
     $id = $_POST["id"];
     $admin = new Administrateur;
@@ -32,13 +41,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
     exit();
 
     if ($result == false) {
-        return $error = "Il y a eu un problème lors de la suppression du commentaire.";
+        $error = "Il y a eu un problème lors de la suppression du commentaire.";
     }
 }
 ?>
 
-<main class=homelivre>
-    <h2>Livre d'or</h2>
+<main>
+    <h2><?= htmlspecialchars($pageTitle) ?></h2>
+    
+    <!-- Barre de recherche -->
+    <form action="livre-or.php" method="GET">
+        <input type="text" name="search" placeholder="Rechercher par mot-clé, date ou utilisateur" value="<?= htmlspecialchars($search) ?>">
+        <button type="submit">Rechercher</button>
+    </form>
+    
     <?php foreach ($commentaires as $com): ?>
         <div class="commentaire">
             <p>
@@ -47,22 +63,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
             <p><?= nl2br(htmlspecialchars($com['comment'])) ?></p>
             <?php if (isset($_SESSION["id"]) && $_SESSION["admin"] == 1) : ?>
                 <form method="POST">
-                    <input type="hidden" name="id" value="<?php echo $com["id"] ?>">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($com["id"]) ?>">
                     <input type="submit" value="Supprimer" name="supprimer" class="delete">
                 </form>
             <?php endif; ?>
         </div>
     <?php endforeach; ?>
 
+    <!-- Pagination -->
     <div class="pagination">
         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="?page=<?= $i ?>" <?= ($i === $page) ? 'class="active"' : '' ?>><?= $i ?></a>
+            <a href="?page=<?= $i ?>&search=<?= urlencode($search) ?>" <?= ($i === $page) ? 'class="active"' : '' ?>><?= $i ?></a>
         <?php endfor; ?>
     </div>
 
-    <?php if (isset($_SESSION['id'])): ?>
-        <a href="ajout-commentaire.php" class="button marron">Ajouter un commentaire</a>
-    <?php endif; ?>
+    <a href="<?php echo isset($_SESSION['id']) ? 'ajout-commentaire.php' : 'connexion.php'; ?>" class="button marron">
+    Remplir le livre d'or</a>
+    
 </main>
 
 <?php require_once(__DIR__ . "/footer.php"); ?>

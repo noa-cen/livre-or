@@ -34,21 +34,8 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `id_user` int NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `comment`
---
-
-INSERT INTO `comment` (`id`, `comment`, `id_user`, `date`) VALUES
-(3, 'salut', 1, '2025-02-18 09:51:27'),
-(5, 'test', 1, '2025-02-18 09:55:13'),
-(6, 'caca\r\n', 1, '2025-02-18 09:55:23'),
-(7, 'commentaire', 1, '2025-02-18 10:00:13'),
-(8, 'coucou noa', 1, '2025-02-18 10:02:23'),
-(9, 'coucou armelle', 1, '2025-02-18 10:02:33'),
-(10, 'coucou caca', 1, '2025-02-18 10:02:39');
+  UNIQUE KEY `id_user` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 

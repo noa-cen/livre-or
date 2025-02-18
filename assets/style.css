@@ -223,16 +223,6 @@ header {
         }
     }
 
-    .connection {
-        border: 1px solid var(--secondary);
-        border-radius: 5px;
-        transition: background-color 0.3s ease-in-out;
-    }
-
-    .connection:hover {
-        background-color: var(--secondary);
-    }
-
     /* .responsive {
         display: none;
     } */
