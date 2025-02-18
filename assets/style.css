@@ -5,11 +5,11 @@
     --tertiary: #F3BDA1;
     --tertiary-85: rgb(243, 189, 161, 0.85);
     --quarterly-:#2C2C2C;
+    --fith:#a8ac88e5;
 }
 
 /* Fonts:
-font-family: "Fascinate", serif;
-font-family: "Fascinate Inline", serif;
+font-family: "Dawning of a New Day", serif;
 font-family: "Lato", serif;
 */
 
@@ -26,12 +26,12 @@ font-family: "Lato", serif;
 }
 
 textarea{
-    color:black;
+    color:var(--quarterly-);
 }
 
 body {
     background-color: var(--primary);
-    background-image: url("./img/background.jpg");
+    background-image: url("./img/background.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -49,9 +49,15 @@ main {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    h2 {
+        font-family: "Dawning of a New Day", serif;
+        font-size: 30pt;
+        align-items: center;
+    }
 }
 
-/* Button */
+/* BUTTON */
 .button {
     padding: 8px 32px;
     border-radius: 20px;
@@ -59,7 +65,7 @@ main {
     font-family: "Roboto", serif;
     font-weight: bold;
     color: var(--primary);
-    font-size: 14pt;
+    font-size: 11pt;
     cursor: pointer;
     margin-bottom: 16px;
 }
@@ -78,7 +84,7 @@ input{
     color:black;
 }
 
-/* Form */
+/* FORM */
 .form {
     background-color: var(--tertiary-85);
     width: auto;
@@ -90,13 +96,7 @@ input{
     align-items: center;
     padding: 24px 40px;
     border-radius: 10px;
-    border: 1px solid var(--primary);
-
-    h2 {
-        font-family: "Fascinate Inline", serif;
-        font-size: 30pt;
-        margin-bottom: 24px;
-    }
+    border: 1px groove var(--primary);
 
     .form-body {
         display: flex;
@@ -170,7 +170,7 @@ input{
     color: red;
 }
 
-/* Mesages */
+/* MESSAGE ERREUR SUCCES*/
 .message {
     width: 400px;
     height: auto;
@@ -182,7 +182,7 @@ input{
 
 .success {
     color: #132a13;
-    background-color: #90a955;
+    background-color:#90a955;
     border-color: #132a13;
 }
 
@@ -192,14 +192,14 @@ input{
     border-color: #540804;
 }
 
-/* Header */
+/* HEADER */
 header {
-    background-color: var(--secondary);
+    background-color: var(--fith);
 
     h1 {
-        font-family: "Fascinate", serif;
+        font-family: "Dawning of a New Day", serif;
         color: var(--primary);
-        font-size: 25pt;
+        font-size: 60px;
         span {
             color: white;
         }
@@ -209,7 +209,7 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 8px 40px;
+        padding: 0px 40px;
     }
 
     .nav-link {
@@ -238,7 +238,7 @@ header {
     } */
 }
 
-/* Home page */
+/* INDEX */
 .home {
     display: flex;
     align-items: center;
@@ -255,15 +255,6 @@ header {
         align-items: flex-start;
         gap: 20px;
 
-        h2 {
-            font-family: "Fascinate Inline", serif;
-            font-size: 40pt;
-        }
-    
-        p {
-            font-size: 14pt; 
-        }
-
         .bouton {
             display: flex;
             margin: 16px auto 0;
@@ -273,9 +264,9 @@ header {
 
 }
 
-/* Footer */
+/* FOOTER */
 footer {
-    background-color: var(--secondary);
+    background-color: var(--fith);
     margin-top: auto;
 
     .copyright {
@@ -285,76 +276,34 @@ footer {
     }
 }
 
+/*LIVRE D'OR*/
 
-/* DASHBOARD (quizzes)____________________________________________________________________________________________________ */
-
-.form-container{
-    padding-top: 50px;
-    justify-self: center;
-    width: 450px;
-    height: auto;
-    align-self: center;
-    justify-content: center;
-}
-
-.quiz-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-.quiz-card {
-    width: 200px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.2s;
-}
-.quiz-card:hover {
-    transform: scale(1.05);
-}
-.quiz-card a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-.quiz-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
-.quiz-title {
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-}
-.create-quiz {
+.homelivre {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    min-height: 200px;
-    min-width: 200px;
-    background-image: url(../assets/img/favicon.ico);
-    background-repeat: no-repeat;
-    background-position:right;
+    background-color: var(--tertiary-85);
+    border-radius: 15px;
+    margin : 32px 200px;
+    
+        .bouton {
+            display: flex;
+            margin: 16px auto 0;
+            gap: 32px;
+        }
+    }
 
-    p{
-        padding-right: 35px;
+
+    /* AJOUT COMMENTAIRE */
+
+    textarea {
+        width: 100%; /* Largeur totale du parent */
+        max-width: 600px; /* Largeur maximale pour éviter qu'il soit trop grand */
+        height: 150px; /* Hauteur initiale */
+        min-height: 100px; /* Hauteur minimale */
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin:15px;
     }
     
-}
-
-.quiz-actions{
-    gap: 0px;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    
-    .button{
-        max-width: 60px;
-    }
-}

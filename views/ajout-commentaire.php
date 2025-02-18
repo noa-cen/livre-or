@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Ajout de Commentaire";
+$pageTitle = "Un petit mot pour Marie & Clara ";
 require_once '../models/DatabaseConnection.php';
 require_once '../models/Commentaire.php';
 require_once (__DIR__ . "/header.php");
@@ -27,15 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['commentaire'])) {
         <?php unset($_SESSION["successMessage"]); ?>
     <?php endif; ?>
 
-    <h2>Ajouter un commentaire</h2>
     <?php if ($message): ?>
         <p class="error"><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
-    <form action="" method="post">
+    <form action="" method="post" class=form>
+    <h2>Un petit mot pour Marie & Clara </h2>
         <textarea name="commentaire" required></textarea>
-        <button type="submit">Envoyer</button>
+        <button type="submit" class="button">Envoyer</button>
     </form>
-    <a href="livre-or.php">Retour au livre d'or</a>
 </main>
 
 <?php require_once(__DIR__ . "/footer.php"); ?>

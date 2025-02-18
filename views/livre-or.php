@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
 }
 ?>
 
-<main>
+<main class=homelivre>
     <h2>Livre d'or</h2>
     <?php foreach ($commentaires as $com): ?>
         <div class="commentaire">
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
     </div>
 
     <?php if (isset($_SESSION['id'])): ?>
-        <a href="ajout-commentaire.php">Ajouter un commentaire</a>
+        <a href="ajout-commentaire.php" class="button marron">Ajouter un commentaire</a>
     <?php endif; ?>
 </main>
 

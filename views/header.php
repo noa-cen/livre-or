@@ -26,8 +26,11 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
     <script src="https://kit.fontawesome.com/ecde10fa93.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fascinate&family=Fascinate+Inline&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet"> 
+
     <link rel="stylesheet" href="/livre-or/assets/style.css?v=<?php echo time(); ?>">
     <link rel="icon" href="/livre-or/assets/img/favicon.ico" type="image/x-icon">
     <title><?php echo $pageTitle; ?></title>
@@ -42,12 +45,10 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
         <article class="nav-link">
             <ul>
                 <?php if (isset($_SESSION["utilisateur"])) : ?>
-                    <li><a href= "/livre-or/views/livre-or.php" 
-                    aria-label="Accéder au livre d'or">Livre d'or</a></li>
+                    <li><a href="./livre-or.php" 
+                    aria-label="Accéder à la page livre d'or" class="button blanc">Voir le livre d'or</a></li>
                     <li><a href="/livre-or/views/profil.php" 
                     aria-label="Accéder à mon compte"><i class="fa-solid fa-user"></i></a></li>
-                    <li class="connection"><a href="?action=logout" 
-                        aria-label="Me déconnecter">Me déconnecter</a></li>
                 <?php endif; ?>
             </ul>
         </article>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 17 fév. 2025 à 13:31
+-- Généré le : mar. 18 fév. 2025 à 10:41
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -18,17 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
-<<<<<<< HEAD
 -- Base de données : `livreor`
-=======
--- Database: `livreor`
->>>>>>> utilisateur
 --
 
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
 -- Structure de la table `comment`
 --
 
@@ -39,23 +34,25 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `id_user` int NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_user` (`id_user`)
-=======
--- Table structure for table `comment`
+  KEY `id_user` (`id_user`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `comment`
 --
 
-CREATE TABLE `comment` (
-  `id` int(11) NOT NULL,
-  `comment_text` text NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
->>>>>>> utilisateur
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `comment` (`id`, `comment`, `id_user`, `date`) VALUES
+(3, 'salut', 1, '2025-02-18 09:51:27'),
+(5, 'test', 1, '2025-02-18 09:55:13'),
+(6, 'caca\r\n', 1, '2025-02-18 09:55:23'),
+(7, 'commentaire', 1, '2025-02-18 10:00:13'),
+(8, 'coucou noa', 1, '2025-02-18 10:02:23'),
+(9, 'coucou armelle', 1, '2025-02-18 10:02:33'),
+(10, 'coucou caca', 1, '2025-02-18 10:02:39');
 
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
 -- Structure de la table `user`
 --
 
@@ -66,7 +63,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(191) COLLATE utf8mb4_general_ci NOT NULL,
   `admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `login`, `password`, `admin`) VALUES
+(1, 'vlad', '$2y$10$RqWEmhln3MJvO.weBCR1mO62Fg1E7C4AX7jSmX.iWRZfKsd12J6Zi', 0);
 
 --
 -- Contraintes pour les tables déchargées
@@ -77,60 +81,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-=======
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `login` varchar(191) NOT NULL,
-  `password` varchar(191) NOT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `comment`
---
-ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `comment`
---
-ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE;
->>>>>>> utilisateur
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
