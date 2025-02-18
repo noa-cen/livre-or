@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['commentaire'])) {
     <form action="" method="post" class=form>
     <h2>Un petit mot pour Marie & Clara </h2>
         <textarea name="commentaire" required></textarea>
-        <button type="submit" class="button">Envoyer</button>
+        <button type="submit" class="boutton">Envoyer</button>
     </form>
 </main>
 

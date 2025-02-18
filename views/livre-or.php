@@ -47,39 +47,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
 ?>
 
 <main>
-    <h2><?= htmlspecialchars($pageTitle) ?></h2>
-    
-    <!-- Barre de recherche -->
-    <form action="livre-or.php" method="GET">
-        <input type="text" name="search" placeholder="Rechercher par mot-clé, date ou utilisateur" value="<?= htmlspecialchars($search) ?>">
-        <button type="submit">Rechercher</button>
-    </form>
-    
-    <?php foreach ($commentaires as $com): ?>
-        <div class="commentaire">
-            <p>
-                <strong><?= htmlspecialchars($com['login']) ?></strong> a écrit le <?= date('d/m/Y', strtotime($com['date'])) ?> :
-            </p>
-            <p><?= nl2br(htmlspecialchars($com['comment'])) ?></p>
-            <?php if (isset($_SESSION["id"]) && $_SESSION["admin"] == 1) : ?>
-                <form method="POST">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($com["id"]) ?>">
-                    <input type="submit" value="Supprimer" name="supprimer" class="delete">
-                </form>
-            <?php endif; ?>
+    <section class="form">
+        <h2><?= htmlspecialchars($pageTitle) ?></h2>
+        
+        <form action="livre-or.php" method="GET" class="form-recherche">
+            <input type="text" name="search" placeholder="Rechercher par mot-clé, date ou utilisateur" value="<?= htmlspecialchars($search) ?>">
+            <button type="submit">Rechercher</button>
+        </form>
+        
+        <?php foreach ($commentaires as $com): ?>
+
+            <section class="commentaires-container">
+                <article class="commentaire">
+                    <p>
+                        <strong><?= htmlspecialchars($com['login']) ?></strong> a écrit le <?= date('d/m/Y', strtotime($com['date'])) ?> :
+                    </p>
+                    <p><?= nl2br(htmlspecialchars($com['comment'])) ?></p>
+                    <?php if (isset($_SESSION["id"]) && $_SESSION["admin"] == 1) : ?>
+                        <form method="POST">
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($com["id"]) ?>">
+                            <input type="submit" value="Supprimer" name="supprimer" class="delete">
+                        </form>
+                    <?php endif; ?>
+                </article>
+            </section>
+        <?php endforeach; ?>
+
+       
+        <div class="pagination">
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="?page=<?= $i ?>&search=<?= urlencode($search) ?>" <?= ($i === $page) ? 'class="active"' : '' ?>><?= $i ?></a>
+            <?php endfor; ?>
         </div>
-    <?php endforeach; ?>
 
-    <!-- Pagination -->
-    <div class="pagination">
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="?page=<?= $i ?>&search=<?= urlencode($search) ?>" <?= ($i === $page) ? 'class="active"' : '' ?>><?= $i ?></a>
-        <?php endfor; ?>
-    </div>
-
-    <a href="<?php echo isset($_SESSION['id']) ? 'ajout-commentaire.php' : 'connexion.php'; ?>" class="button marron">
-    Remplir le livre d'or</a>
-    
+        <a href="<?php echo isset($_SESSION['id']) ? 'ajout-commentaire.php' : 'connexion.php'; ?>" class="boutton marron">
+        Remplir le livre d'or</a>
+    </section>
 </main>
 
 <?php require_once(__DIR__ . "/footer.php"); ?>

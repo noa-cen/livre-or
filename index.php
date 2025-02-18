@@ -19,16 +19,16 @@ require_once(__DIR__ . "/views/header.php");
 
             <article class="bouton">
                 <a href="./views/livre-or.php" 
-                aria-label="Accéder à la page livre d'or" class="button blanc">Voir le livre d'or</a>
+                aria-label="Accéder à la page livre d'or" class="boutton blanc">Voir le livre d'or</a>
                 
                 <?php if(!isset($_SESSION["id"])): ?>
                 <a href="./views/connexion.php" 
                 aria-label="Accéder à la page d'ajout de commentaire" 
-                class="button marron">Remplir le livre d'or</a>
+                class="boutton marron">Remplir le livre d'or</a>
                 <?php else: ?>
                 <a href="./views/ajout-commentaire.php" 
                 aria-label="Accéder à la page d'ajout de commentaire" 
-                class="button marron">Remplir le livre d'or</a>
+                class="boutton marron">Remplir le livre d'or</a>
                 <?php endif; ?>
             </article>
         </article>
