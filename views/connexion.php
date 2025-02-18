@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required>
             </article>
 
-            <input type="submit" value="Se connecter" class="button marron">
+            <input type="submit" value="Se connecter" class="boutton marron">
 
             <a href="./inscription.php">Pas encore de compte ? C'est par ici !</a>
         </section>

@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 placeholder="Confirmer le mot de passe">
             </article>
 
-            <input type="submit" value="Modifier" name="modifier" class="button marron">
+            <input type="submit" value="Modifier" name="modifier" class="boutton marron">
         </section>        
     </form>
 </main>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 17 fév. 2025 à 13:31
+-- Généré le : mar. 18 fév. 2025 à 10:41
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -50,7 +50,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(191) COLLATE utf8mb4_general_ci NOT NULL,
   `admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `login`, `password`, `admin`) VALUES
+(1, 'vlad', '$2y$10$RqWEmhln3MJvO.weBCR1mO62Fg1E7C4AX7jSmX.iWRZfKsd12J6Zi', 0);
 
 --
 -- Contraintes pour les tables déchargées
