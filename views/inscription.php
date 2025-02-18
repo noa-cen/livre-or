@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 placeholder="Code d'invitation (optionnel)">
             </article>
 
-            <input type="submit" value="Créer" class="button marron">
+            <input type="submit" value="Créer" class="boutton marron">
         </section>
     </form>
 </main>
