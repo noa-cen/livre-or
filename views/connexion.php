@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Set session variables with user data
         $_SESSION["id"] = $loggedInUser["id"];
         $_SESSION["utilisateur"] = $loggedInUser["login"];
+        $_SESSION["admin"] = $loggedInUser["admin"];
         $_SESSION["successMessage"] = "Bienvenue " . $_SESSION["utilisateur"] . " !";
         header("Location: ajout-commentaire.php");
         exit();

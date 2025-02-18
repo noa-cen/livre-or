@@ -22,23 +22,35 @@ $offset = ($page - 1) * $limit;
 $commentaires = $commentaire->recupererCommentaires($limit, $offset);
 $totalCommentaires = $commentaire->compterCommentaires();
 $totalPages = ceil($totalCommentaires / $limit);
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
+    $id = $_POST["id"];
+    $admin = new Administrateur;
+    $result = $admin->supprimerCommentaire($id);
+    header("Location: livre-or.php");
+    exit();
+
+    if ($result == false) {
+        return $error = "Il y a eu un problème lors de la suppression du commentaire.";
+    }
+}
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Livre d'or</title>
-    <link rel="stylesheet" href="../assets/style.css">
-</head>
-<body>
-    <h1>Livre d'or</h1>
+<main>
+    <h2>Livre d'or</h2>
     <?php foreach ($commentaires as $com): ?>
         <div class="commentaire">
             <p>
                 <strong><?= htmlspecialchars($com['login']) ?></strong> a écrit le <?= date('d/m/Y', strtotime($com['date'])) ?> :
             </p>
             <p><?= nl2br(htmlspecialchars($com['comment'])) ?></p>
+            <?php if (isset($_SESSION["id"]) && $_SESSION["admin"] == 1) : ?>
+                <form method="POST">
+                    <input type="hidden" name="id" value="<?php echo $com["id"] ?>">
+                    <input type="submit" value="Supprimer" name="supprimer" class="delete">
+                </form>
+            <?php endif; ?>
         </div>
     <?php endforeach; ?>
 
@@ -48,8 +60,9 @@ $totalPages = ceil($totalCommentaires / $limit);
         <?php endfor; ?>
     </div>
 
-    <?php if (isset($_SESSION['user_id'])): ?>
+    <?php if (isset($_SESSION['id'])): ?>
         <a href="ajout-commentaire.php">Ajouter un commentaire</a>
     <?php endif; ?>
-</body>
-</html>
+</main>
+
+<?php require_once(__DIR__ . "/footer.php"); ?>

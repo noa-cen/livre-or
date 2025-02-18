@@ -46,6 +46,8 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
                     aria-label="Accéder au livre d'or">Livre d'or</a></li>
                     <li><a href="/livre-or/views/profil.php" 
                     aria-label="Accéder à mon compte"><i class="fa-solid fa-user"></i></a></li>
+                    <li class="connection"><a href="?action=logout" 
+                        aria-label="Me déconnecter">Me déconnecter</a></li>
                 <?php endif; ?>
             </ul>
         </article>
