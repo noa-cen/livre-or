@@ -14,9 +14,10 @@ class Administrateur extends Utilisateur
 
         $mdpProtege = password_hash($mdp, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO user(login, password, admin) VALUES (:login, :password, :admin)";
+        $query = "INSERT INTO user(login, password, role) VALUES (:login, :password, :role)";
         $stmt = $this->getPdo()->prepare($query);
-        if ($stmt->execute([":login" => $utilisateur, ":password" => $mdpProtege, "admin" => 1])) {
+        if ($stmt->execute([":login" => $utilisateur, ":password" => $mdpProtege, 
+        ":role" => "moderateur"])) {
             return true;
         } else {
             return $errors["inscription"] = "Erreur lors de l'inscription.";

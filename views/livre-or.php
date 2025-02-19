@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
                     ?></span>, écrit le <span class="italic"><?= date('d/m/Y', strtotime($com['date'])) 
                     ?></span> :</p>
                     <p><?= nl2br(htmlspecialchars($com['comment'])) ?></p>
-                    <?php if (isset($_SESSION["id"]) && $_SESSION["admin"] == 1) : ?>
+                    <?php if (isset($_SESSION["id"]) && $_SESSION["role"] == "moderateur") : ?>
                         <form method="POST" class="form-delete">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($com["id"]) ?>">
                             <button type="submit" name="supprimer" class="delete"

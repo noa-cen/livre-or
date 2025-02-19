@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $utilisateurController->creationUtilisateur($utilisateur, $mdp, $mdpVerifie, $codeSecret);
 
     if ($result === true) {
-        echo "Inscription réussie !";
+        return "Inscription réussie !";
     } else {
         return $errors;
     }
