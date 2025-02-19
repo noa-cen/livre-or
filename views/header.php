@@ -40,22 +40,33 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
 <header>
     <nav class="navbar">
 
-        <a href="/livre-or/index.php" aria-label="Accéder à l'accueil"><h1>Marie <span>&</span> Clara</h1></a>
+        <a href="/livre-or/index.php" aria-label="Accéder à l'accueil"><h1>Marie <span>&</span> 
+        Clara</h1></a>
 
         <article class="nav-link">
             <ul>
                 <?php if (isset($_SESSION["utilisateur"])) : ?>
                     <li><a href="/livre-or/views/livre-or.php" 
-                    aria-label="Accéder à la page livre d'or" class="boutton blanc">Voir le livre d'or</a></li>
+                    aria-label="Accéder à la page livre d'or" 
+                    class="boutton blanc">Voir le livre d'or</a></li>
+
                     <li><a href="/livre-or/views/profil.php" 
-                    aria-label="Accéder à mon compte" class="boutton blanc"><?php echo $_SESSION['utilisateur']?></a></li>
-                    <li class="connection"><a href="?action=logout"
-                        aria-label="Me déconnecter" class="boutton blanc">Me déconnecter</a></li>
-                        <?php else :?>
-                            <li><a href="/livre-or/views/connexion.php" 
-                            aria-label="Accéder à la page connexion" class="boutton blanc">Se connecter</a></li>  
+                    aria-label="Accéder à mon compte" class="boutton blanc"><?php 
+                    echo $_SESSION["utilisateur"]?></a></li>
+
+                    <li><a href="?action=logout" aria-label="Me déconnecter" 
+                    class="boutton blanc">Me déconnecter</a></li>
+
+                <?php else :?>
+                    <li><a href="/livre-or/views/connexion.php" 
+                    aria-label="Accéder à la page connexion" class="boutton blanc">Se connecter</a></li>  
                 <?php endif; ?>
             </ul>
+        </article>
+
+        <article class="responsive">
+            <input type="checkbox" id="menu-hamburger">
+            <label for="menu-hamburger"></label>
         </article>
     </nav>
 </header>

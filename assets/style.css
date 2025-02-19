@@ -179,6 +179,8 @@ header {
         justify-content: space-between;
         align-items: center;
         padding: 0px 40px;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .nav-link {
@@ -192,9 +194,63 @@ header {
         }
     }
 
-    /* .responsive {
+    .responsive {
         display: none;
-    } */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--fith);
+        z-index: 2;
+    }
+
+    label {
+        width: 30px;
+        height: 4px;
+        background-color: var(--primary);
+        position: absolute;
+        top: 50px;
+        right: 32px;
+        cursor: pointer;
+        border-radius: 16px;
+    
+        &::before, &::after {
+            content: " ";
+            width: 30px;
+            height: 4px;
+            background-color: var(--primary);
+            position: absolute;
+            display: block;
+            border-radius: 16px;
+            transition: all 0.7s ease;
+        }
+        &::before {
+            bottom: 9px;
+            left: 0;
+            transform-origin: left top;
+        }
+        &::after {
+            top: 9px;
+            left: 0;
+            transform-origin: left bottom;
+        }
+    }
+
+    #menu-hamburger:checked ~label::before {
+        transform: rotateZ(40deg);
+    }
+    #menu-hamburger:checked ~label::after {
+        transform: rotateZ(-40deg);
+    }
+    #menu-hamburger:checked ~label {
+        background-color: var(--fith);
+    }
+    #menu-hamburger ~label {
+        transition: all 0.6s ease;
+    }
+    #menu-hamburger {
+        display: none;
+    }
 }
 
 /* INDEX */
@@ -208,7 +264,7 @@ header {
         background-color: var(--tertiary-85);
         border-radius: 15px;
         padding: 16px;
-        margin: 32px 200px;
+        max-width: 600px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -220,7 +276,6 @@ header {
             gap: 32px;
         }
     }
-
 }
 
 /* FOOTER */
@@ -374,4 +429,144 @@ textarea {
     border-radius: 5px;
     margin:15px;
     color:var(--quarterly-);
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    main {
+        justify-content: center;
+        margin: 24px;
+    }
+
+    .home {
+        flex-direction: column;
+
+        .text {
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+    header {
+        h1 {
+            font-size: 40pt;
+        }
+
+        .navbar {
+            padding: 8px 24px;
+    
+            .nav-link {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: #a8ac88;
+                justify-content: center;
+                align-items: center;
+                margin-left: -100%;
+                transition: all 0.5s ease;
+    
+                ul {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 24px;
+                    
+                    li {
+                        font-size: 20pt;
+                    }
+                }
+            }
+    
+            .responsive {
+                display: block;
+            }
+    
+            .nav-link.mobile-menu {
+                margin-left: 0;
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 24px;
+            }
+        }
+    }
+
+    h2 {
+        font-size: 30pt;
+        text-align: center;
+    }
+}
+
+@media (max-width: 425px) {
+    main {
+        h2 {
+            font-size: 30pt;
+        }
+    }
+
+    .form {
+        max-width: 300px;
+        padding: 16px 24px;
+    }
+
+    .form-recherche {
+        max-width: 300px;
+    }
+    
+    .commentaire {
+        max-width: 300px;
+    }
+    
+    .livre {
+        font-size: 40pt;
+    }
+
+    .pagination {
+        margin-bottom: 16px;
+    }
+
+    .droite {
+        align-self: center;
+    }
+}
+
+@media (max-width: 375px) {
+    header {
+        h1 {
+            font-size: 30pt;
+        }
+
+        label {
+            top: 40px;
+            right: 24px;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    main {
+        h2 {
+            font-size: 25pt;
+        }
+    }
+
+    .form {
+        max-width: 250px;
+
+        .form-items {  
+            input {
+                max-width: 250px;
+            }
+        }
+    }
+
+    .form-recherche {
+        max-width: 250px;
+    }
+    
+    .commentaire {
+        max-width: 250px;
+    }
 }
