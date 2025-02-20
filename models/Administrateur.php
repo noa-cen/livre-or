@@ -9,7 +9,8 @@ class Administrateur extends Utilisateur
         $stmt = $this->getPdo()->prepare($query);
         $stmt->execute(["login" => $utilisateur]);
         if ($stmt->fetch(PDO::FETCH_ASSOC)) {
-            return $errors["utilisateur"] = "Un compte existe déjà avec ce nom d'utilisateur.";
+            $_SESSION["errorMessage"] = "Un compte existe déjà avec ce nom d'utilisateur.";
+            return false;
         }
 
         $mdpProtege = password_hash($mdp, PASSWORD_DEFAULT);
@@ -20,7 +21,7 @@ class Administrateur extends Utilisateur
         ":role" => "moderateur"])) {
             return true;
         } else {
-            return $errors["inscription"] = "Erreur lors de l'inscription.";
+            $_SESSION["errorMessage"] = "Erreur lors de l'inscription.";
         }
     }
 
@@ -32,7 +33,7 @@ class Administrateur extends Utilisateur
             return true;
         }
         else {
-            return false;
+            $_SESSION["errorMessage"] = "Un problème est survenu lors de la suppression du commentaire.";
         }
     }
 }

@@ -4,7 +4,6 @@ $pageTitle = "Créer mon compte";
 require_once(__DIR__ . "/header.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Récupération des données du formulaire
     $utilisateur = htmlspecialchars(trim($_POST["utilisateur"]));
     $mdp = $_POST["mdp"];
     $mdpVerifie = $_POST["mdpVerifie"];
@@ -12,24 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $utilisateurController = new UtilisateurController;
     $result = $utilisateurController->creationUtilisateur($utilisateur, $mdp, $mdpVerifie, $codeSecret);
-
-    if ($result === true) {
-        return "Inscription réussie !";
-    } else {
-        return $errors;
-    }
 }
-
 ?>
 
 <main>
     <form action="" method="POST" class="form">
         <h2>Créer votre compte</h2>
-        
-        <section class="form-body">
-            <?php if (!empty($errors["utilisateur"])) : ?>
-                <p class="message error"><?php echo $errors["utilisateur"]; ?></p>
-            <?php endif; ?>
+
+        <?php if (isset($_SESSION["errorMessage"])) : ?>
+            <p class="message error"><?php echo $_SESSION["errorMessage"] ; ?></p>
+            <?php unset($_SESSION["errorMessage"]); ?>
+        <?php endif; ?>
 
             <article class="form-items">
                 <label for="utilisateur">Nom d'utilisateur: </label>
@@ -37,19 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 required>
             </article>
 
-            <?php if (!empty($errors["mdp"])) : ?>
-                <p class="message error"><?php echo $errors["mdp"];?></p>
-            <?php endif; ?>
-
             <article class="form-items">
                 <label for="mdp">Mot de passe:</label>
-                <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" 
-                required>
+                <input type="password" id="mdp" name="mdp" required
+                placeholder="8 caractères minimum dont une lettre et un chiffre">
             </article>
-
-            <?php if (!empty($errors["mdpVerifie"])) : ?>
-                <p class="message error"><?php echo $errors["mdpVerifie"]; ?></p>
-            <?php endif; ?>
 
             <article class="form-items">
                 <label for="mdpVerifie">Confirmer le mot de passe:</label>

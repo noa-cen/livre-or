@@ -7,26 +7,24 @@ $utilisateur = $mdp = "";
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Trim whitespace from the email and password inputs
     $utilisateur = trim($_POST["utilisateur"]);
     $mdp = $_POST["mdp"];
 
     $utilisateurController = new UtilisateurController;
-    $loggedInUser = $utilisateurController->connexionUtilisateur($utilisateur, $mdp);
+    $utilisateurConnecte = $utilisateurController->connexionUtilisateur($utilisateur, $mdp);
 
-    if ($loggedInUser) {
+    if ($utilisateurConnecte) {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }        
-        // Set session variables with user data
-        $_SESSION["id"] = $loggedInUser["id"];
-        $_SESSION["utilisateur"] = $loggedInUser["login"];
-        $_SESSION["role"] = $loggedInUser["role"];
+        $_SESSION["id"] = $utilisateurConnecte["id"];
+        $_SESSION["utilisateur"] = $utilisateurConnecte["login"];
+        $_SESSION["role"] = $utilisateurConnecte["role"];
         $_SESSION["successMessage"] = "Bienvenue " . $_SESSION["utilisateur"] . " !";
         header("Location: ajout-commentaire.php");
         exit();
     } else {
-        $errors["connexion"] = "Email ou mot de passe incorrect.";
+        $_SESSION["errorMessage"] = "Email ou mot de passe incorrect.";
     }
 }
 ?>
@@ -37,13 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php unset($_SESSION["successMessage"]); ?>
     <?php endif; ?>
 
-    <?php if (!empty($errors)) : ?>
-        <p class="message error"><?= htmlspecialchars($errors["connexion"]); ?></p>
-    <?php endif; ?>
-
     <form action="" method="POST" class="form">
-
         <h2>Connectez-vous</h2>
+
+        <?php if (isset($_SESSION["errorMessage"])) : ?>
+            <p class="message error"><?php echo $_SESSION["errorMessage"] ; ?></p>
+            <?php unset($_SESSION["errorMessage"]); ?>
+        <?php endif; ?>
         
         <section class="form-body">
             <article class="form-items">

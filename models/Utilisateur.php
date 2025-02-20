@@ -14,7 +14,8 @@ class Utilisateur extends DatabaseConnection
         $stmt = $this->getPdo()->prepare($query);
         $stmt->execute(["login" => $utilisateur]);
         if ($stmt->fetch(PDO::FETCH_ASSOC)) {
-            return $errors["utilisateur"] = "Un compte existe déjà avec ce nom d'utilisateur.";
+            $_SESSION["errorMessage"] = "Un compte existe déjà avec ce nom d'utilisateur.";
+            return false;
         }
 
         $mdpProtege = password_hash($mdp, PASSWORD_DEFAULT);
@@ -24,7 +25,7 @@ class Utilisateur extends DatabaseConnection
         if ($stmt->execute([":login" => $utilisateur, ":password" => $mdpProtege, ":role" => "user"])) {
             return true;
         } else {
-            return $errors["inscription"] = "Erreur lors de l'inscription.";
+            $_SESSION["errorMessage"] = "Erreur lors de l'inscription.";
         }
     }
 
@@ -52,19 +53,27 @@ class Utilisateur extends DatabaseConnection
             $query = "UPDATE user SET login = :login, password = :password WHERE id = :id";
             $stmt = $this->getPdo()->prepare($query);
             
-            $nouveauMdpProtege = password_hash($nouveauMdp, PASSWORD_DEFAULT);
+            if (!empty($nouveauMdp)) {
+                $nouveauMdpProtege = password_hash($nouveauMdp, PASSWORD_DEFAULT);
 
-            $params = [
-                ":login" => $nouveauUtilisateur,
-                ":password" => $nouveauMdpProtege,
-                ":id" => $user_id
-            ];
-        
+                $params = [
+                    ":login" => $nouveauUtilisateur,
+                    ":password" => $nouveauMdpProtege,
+                    ":id" => $user_id
+                ];
+            } else {
+                $params = [
+                    ":login" => $nouveauUtilisateur,
+                    ":password" => $password,
+                    ":id" => $user_id
+                ];
+            }
+ 
             $modif = $stmt->execute($params);
             return $modif;
         }
         else {
-            return "Le mot de passe est incorrect.";
+            $_SESSION["errorMessage"] = "Le mot de passe est incorrect.";
         }
     }
 }
