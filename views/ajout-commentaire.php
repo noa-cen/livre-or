@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['commentaire'])) {
         $message = "Erreur lors de l'ajout du commentaire.";
     }
 }
-
 ?>
 
 <main>

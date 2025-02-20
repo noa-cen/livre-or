@@ -32,11 +32,11 @@ if (!empty($search)) {
 
 $totalPages = ceil($totalCommentaires / $limit);
 
-// Suppression d'un commentaire (pour admin)
+// Suppression d'un commentaire (pour modérateur)
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
     $id = $_POST["id"];
-    $admin = new Administrateur;
-    $result = $admin->supprimerCommentaire($id);
+    $moderateur = new Administrateur;
+    $result = $moderateur->supprimerCommentaire($id);
     header("Location: livre-or.php");
     exit();
 

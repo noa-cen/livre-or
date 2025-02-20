@@ -9,8 +9,8 @@ $pdo = $connexion->getPdo();
 
 $session = new Session;
 $session->startSession();
-if (isset($_GET["action"]) && $_GET["action"] === "logout") {
-    $session->logOut();
+if (isset($_GET["action"]) && $_GET["action"] === "deconnexion") {
+    $session->deconnexion();
 }
 ?>
 
@@ -54,7 +54,7 @@ if (isset($_GET["action"]) && $_GET["action"] === "logout") {
                     aria-label="Accéder à mon compte" class="boutton blanc"><?php 
                     echo $_SESSION["utilisateur"]?></a></li>
 
-                    <li><a href="?action=logout" aria-label="Me déconnecter" 
+                    <li><a href="?action=deconnexion" aria-label="Me déconnecter" 
                     class="boutton blanc">Me déconnecter</a></li>
 
                 <?php else :?>

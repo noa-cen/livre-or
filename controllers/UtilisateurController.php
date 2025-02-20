@@ -70,7 +70,6 @@ class UtilisateurController extends DatabaseConnection
                 lettre et un chiffre.";
             }
 
-            // Check if the password and its verification match
             if ($nouveauMdp !== $nouveauMdpVerifie) {
                 $_SESSION["errorMessage"] = "Les mots de passe ne correspondent pas.";
             }
