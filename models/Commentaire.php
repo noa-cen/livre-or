@@ -7,7 +7,7 @@ class Commentaire {
         $this->pdo = $db->getPdo();
     }
 
-    // Ajoute un commentaire dans la base
+    // Ajoute un commentaire 
     public function ajouterCommentaire($id_user, $comment) {
         $sql = "INSERT INTO comment (id_user, comment) VALUES (:id_user, :comment)";
         $stmt = $this->pdo->prepare($sql);
@@ -55,7 +55,8 @@ class Commentaire {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Compte le nombre total de commentaires correspondant à une recherche (pour la pagination)
+    // Compte le nombre total de commentaires correspondant à une recherche (pr la pagination)
+    
     public function compterCommentairesRecherche($keyword) {
         $sql = "SELECT COUNT(*) as total
                 FROM comment AS c

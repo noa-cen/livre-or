@@ -1,8 +1,7 @@
 <?php
-session_start();
+
 $pageTitle = "Livre d'Or";
 
-require_once '../models/DatabaseConnection.php';
 require_once '../models/Commentaire.php';
 require_once (__DIR__ . "/../views/header.php");
 
