@@ -39,16 +39,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["supprimer"])) {
     $result = $moderateur->supprimerCommentaire($id);
     header("Location: livre-or.php");
     exit();
-
-    if ($result == false) {
-        $error = "Il y a eu un problème lors de la suppression du commentaire.";
-    }
 }
 ?>
 
 <main>
     <section class="form">
         <h2 class="livre">Livre d'Or</h2>
+
+        <?php if (isset($_SESSION["errorMessage"])) : ?>
+            <p class="message error"><?php echo $_SESSION["errorMessage"] ; ?></p>
+            <?php unset($_SESSION["errorMessage"]); ?>
+        <?php endif; ?>
         
         <form action="livre-or.php" method="GET" class="form-recherche">
             <input type="text" name="search" placeholder="Rechercher par mot-clé, date ou utilisateur" 
